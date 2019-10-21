@@ -1,0 +1,7 @@
+/dist/*
+.eslintrc.js
+.babelrc
+package.json
+package-lock.json
+webpack.dev.js
+webpack.prod.js

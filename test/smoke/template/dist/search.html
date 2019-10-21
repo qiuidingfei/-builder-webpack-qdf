@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="Content-Language" content="zh-CN"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=gb2312"><meta name="keywords" content="奥运会,nba,体育直播,体育新闻,体育,腾讯体育,腾讯网,NBA直播,NBA视频,英超直播,意甲直播,西甲视频,英超视频,意甲视频"><meta name="description" content="腾讯体育是中国知名的体育门户网站，主要为您提供以下栏目：国内足球、国际足球、NBA、CBA、综合体育、奥运、直播、彩票、竞猜等，在各项指标中均树立了绝对领先地位。"><meta name="baidu-site-verification" content="bKqnugZCmo"><link rel="alternate" type="application/vnd.wap.xhtml+xml" media="handheld" href="//xw.qq.com/m/sports/"><link rel="stylesheet" href="//mat1.gtimg.com/pingjs/ext2020/spIndex/2019/styles/main-58a757ea8d.css"><title>Search Page</title><script>;
+
+(function (win, lib) {
+  var doc = win.document;
+  var docEl = doc.documentElement;
+  var metaEl = doc.querySelector('meta[name="viewport"]');
+  var flexibleEl = doc.querySelector('meta[name="flexible"]');
+  var dpr = 0;
+  var scale = 0;
+  var tid;
+  var flexible = lib.flexible || (lib.flexible = {});
+
+  if (metaEl) {
+    console.warn('将根据已有的meta标签来设置缩放比例');
+    var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+
+    if (match) {
+      scale = parseFloat(match[1]);
+      dpr = parseInt(1 / scale);
+    }
+  } else if (flexibleEl) {
+    var content = flexibleEl.getAttribute('content');
+
+    if (content) {
+      var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+      var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+
+      if (initialDpr) {
+        dpr = parseFloat(initialDpr[1]);
+        scale = parseFloat((1 / dpr).toFixed(2));
+      }
+
+      if (maximumDpr) {
+        dpr = parseFloat(maximumDpr[1]);
+        scale = parseFloat((1 / dpr).toFixed(2));
+      }
+    }
+  }
+
+  if (!dpr && !scale) {
+    var isAndroid = win.navigator.appVersion.match(/android/gi);
+    var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+    var devicePixelRatio = win.devicePixelRatio;
+
+    if (isIPhone) {
+      // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+      if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+        dpr = 3;
+      } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
+        dpr = 2;
+      } else {
+        dpr = 1;
+      }
+    } else {
+      // 其他设备下，仍旧使用1倍的方案
+      dpr = 1;
+    }
+
+    scale = 1 / dpr;
+  }
+
+  docEl.setAttribute('data-dpr', dpr);
+
+  if (!metaEl) {
+    metaEl = doc.createElement('meta');
+    metaEl.setAttribute('name', 'viewport');
+    metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+
+    if (docEl.firstElementChild) {
+      docEl.firstElementChild.appendChild(metaEl);
+    } else {
+      var wrap = doc.createElement('div');
+      wrap.appendChild(metaEl);
+      doc.write(wrap.innerHTML);
+    }
+  }
+
+  function refreshRem() {
+    var width = docEl.getBoundingClientRect().width;
+
+    if (width / dpr > 540) {
+      width = 540 * dpr;
+    }
+
+    var rem = width / 10;
+    docEl.style.fontSize = rem + 'px';
+    flexible.rem = win.rem = rem;
+  }
+
+  win.addEventListener('resize', function () {
+    clearTimeout(tid);
+    tid = setTimeout(refreshRem, 300);
+  }, false);
+  win.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      clearTimeout(tid);
+      tid = setTimeout(refreshRem, 300);
+    }
+  }, false);
+
+  if (doc.readyState === 'complete') {
+    doc.body.style.fontSize = 12 * dpr + 'px';
+  } else {
+    doc.addEventListener('DOMContentLoaded', function (e) {
+      doc.body.style.fontSize = 12 * dpr + 'px';
+    }, false);
+  }
+
+  refreshRem();
+  flexible.dpr = win.dpr = dpr;
+  flexible.refreshRem = refreshRem;
+
+  flexible.rem2px = function (d) {
+    var val = parseFloat(d) * this.rem;
+
+    if (typeof d === 'string' && d.match(/rem$/)) {
+      val += 'px';
+    }
+
+    return val;
+  };
+
+  flexible.px2rem = function (d) {
+    var val = parseFloat(d) / this.rem;
+
+    if (typeof d === 'string' && d.match(/px$/)) {
+      val += 'rem';
+    }
+
+    return val;
+  };
+})(window, window['lib'] || (window['lib'] = {}));</script><link href="search_202fd378.css" rel="stylesheet"></head><body><div id="root"><!--HTML_PLACEHOLDER--></div><script type="text/javascript" src="https://11.url.cn/now/lib/16.2.0/react.min.js"></script><script type="text/javascript" src="https://11.url.cn/now/lib/16.2.0/react-dom.min.js"></script><script type="text/javascript" src="https://11.url.cn/now/lib/16.2.0/react.min.js"></script><script type="text/javascript" src="https://11.url.cn/now/lib/16.2.0/react-dom.min.js"></script><script type="text/javascript" src="common.js"></script><script type="text/javascript" src="search.js"></script></body></html>
